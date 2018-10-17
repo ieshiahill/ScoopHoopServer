@@ -18,6 +18,7 @@ app.use("/games", games);
 
 app.use(require("./middleware/validate-session")); //We imported the validate-session middleware, which will check to see if the incoming request has a token. 
 
-app.listen(3000, function(){ //app.listen will use express to start a UNIX socket and listen for connections on the given path. This method is identical to Node’s http.Server.listen() // The given path is localhost:3000
-    console.log("App is listening on 3008.") //We call a callback function when the connection happens with a simple console.log
-});
+app.listen(process.env.PORT, () => {
+    console.log(`server is listening on port ${process.env.PORT}`)
+})
+;

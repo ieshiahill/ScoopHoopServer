@@ -2,10 +2,10 @@
   "name": "pickupgameappserver",
   "version": "1.0.0",
   "description": "server for pcikup game app",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./node_modules/http-server/bin/http-server"
+    "start": "node index.js"
   },
   "author": "Ieshia Hill",
   "license": "MIT",
