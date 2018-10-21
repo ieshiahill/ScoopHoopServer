@@ -1,23 +1,21 @@
 require("dotenv").config();
 
-var express = require("express"); //Here we require the use of the express npm package that we've installed in our dependencies. 
-var app = express(); //We create an instance of express. We're actually firing off a top-level express() function, a function exported by the Express module. This allows us to create an Express app. 
-var user = require("./controllers/usercontroller"); //We import the usercontroller.js file.
-var games = require("./controllers/gamescontroller");
-var sequelize = require("./db"); //Create a sequelize variable that imports the db file. 2. Use the variable and call .sync().
+var express = require("express"); 
+var app = express(); 
+var user = require("./controllers/usercontroller"); 
+var sequelize = require("./db"); 
 var bodyParser = require("body-parser");
+var games = require("./controllers/gamescontroller");
 
-sequelize.sync(); //Use the variable and call .sync(). This method will ensure that we sync all defined models to the DB.
-app.use(bodyParser.json()); //This app.use statement MUST go above any routes. Any routes above this statement will not be able to use the bodyparser library, so they will break. 
+
+sequelize.sync(); 
+app.use(bodyParser.json());
 app.use(require("./middleware/headers"));
-
-
-app.use("/user", user); //We set up a route to the endpoints for the /user route.
-
+//exposed routes
+app.use("/user", user); 
+//protected routes
+app.use(require("./middleware/validate-session")); 
 app.use("/games", games);
-
-app.use(require("./middleware/validate-session")); //We imported the validate-session middleware, which will check to see if the incoming request has a token. 
-
 app.listen(process.env.PORT, () => {
     console.log(`server is listening on port ${process.env.PORT}`)
 })
