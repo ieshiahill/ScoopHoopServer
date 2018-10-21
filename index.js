@@ -13,6 +13,7 @@ app.use(bodyParser.json());
 app.use(require("./middleware/headers"));
 //exposed routes
 app.use("/user", user); 
+
 //protected routes
 app.use(require("./middleware/validate-session")); 
 app.use("/games", games);

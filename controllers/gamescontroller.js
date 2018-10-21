@@ -53,27 +53,16 @@ router.post('/', function (req, res){
             notes: notes
         })
         .then(
-            function createSuccess(owner,gamefrequency,time,startdate,venue,address,city,state,zipcode,cost,notes) {
-                res.json({
-                    owner: owner,
-                    gamefrequency: gamefrequency,
-                    time: time,
-                    startdate: startdate,
-                    venue: venue,
-                    address: address,
-                    city: city,
-                    state: state,
-                    zipcode: zipcode,
-                    cost: cost,
-                    notes: notes
-                });
+            function message(data) {
+                res.send(data);
             },
-            function createError(err) {
-                res.send(500, err.message);
-
+            function error(err) {
+               res.send(500, err.message);
             }
         );
+        
 });
+
 
 
 //Get single Item for User
@@ -113,7 +102,7 @@ router.delete('/:id', function(req, res) {
     );
 });
 //Update item for User
-router.put('/:id', function(req,res){
+router.put('/:id', (req,res) => {
 // router.get("/getall" function (req, res) {     - postman testing
     var data = req.params.id;
     var gamefrequency = req.body.games.gamefrequency;
@@ -142,9 +131,9 @@ router.put('/:id', function(req,res){
     },
     {where: {id: data}}
     ).then(
-        function updateSuccess(updatedGames) {
+        function updateSuccess(updateGames) {
             res.json({
-                updatedGames: updatedGames    
+                updatedGames: updateGames    
         });
     },
     function updateError(err){
@@ -152,6 +141,27 @@ router.put('/:id', function(req,res){
     }
     )
 });
+
+//create a game
+// router.post("/creategames", function (req, res) {
+//     Games.create({ 
+//         gamefrequency: req.body.frequency,
+//         time: Date.now(),
+//         startdate: Date.now(),
+//         venue: req.body.venue,
+//         address: req.body.address,
+//         city: req.body.city,
+//         state: req.body.state,
+//         zipcode: req.body.zipcode,
+//         cost: req.body.cost,
+//         notes: req.body.notes
+//     })
+//     .then(
+//         function message(info) {
+//             res.send(info);
+//         }
+//     )
+// });
 
 module.exports = router;
 
