@@ -6,7 +6,6 @@ module.exports = function(req, res, next) {
     if (req.method == "OPTIONS") {
          next()
      } else {
-    }
 
     var sessionToken = req.headers.authorization; 
     console.log(sessionToken) 
@@ -26,5 +25,5 @@ module.exports = function(req, res, next) {
             }
         });
     }
- 
+}
 }
